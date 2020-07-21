@@ -3,28 +3,32 @@
 @section('content')
 
     <div class="container">
-        <a href="">
-            <button class="btn btn-success float-right mb-sm-3">registrar usuario</button>
-        </a>
         <table class="table table-hover mt-3">
             <thead class="bg-info">
                 <th>usuario</th>
                 <th>correo</th>
-                <th colspan="2">opciones</th>
+                <th colspan="3">opciones</th>
             </thead>
             @foreach ($users as $user)
             <tbody>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="">
-                            <button class="btn btn-warning">editar</button>
+                        <a href="{{ route('users.show', $user->id) }}">
+                            <button class="btn btn-secondary btn-sm">ver</button>
                         </a>
                     </td>
                     <td>
-                        <a href="">
-                            <button class="btn btn-danger">eliminar</button>
+                        <a href="{{ route('users.edit', $user->id) }}">
+                            <button class="btn btn-warning btn-sm">editar</button>
                         </a>
+                    </td>
+                    <td>
+                        <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-sm">eliminar</button>
+                        </form>
                     </td>
             </tbody>
             @endforeach

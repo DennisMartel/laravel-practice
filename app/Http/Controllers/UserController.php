@@ -56,7 +56,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('users.show', ['user' => User::findOrFail($id)]);
     }
 
     /**
@@ -67,7 +67,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('users.edit', ['user' => User::findOrFail($id)]);
     }
 
     /**
@@ -79,7 +79,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+
+        $user->update();
+
+        return redirect('/users');
     }
 
     /**
@@ -90,6 +97,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return redirect('/users');
     }
 }

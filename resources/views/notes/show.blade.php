@@ -3,8 +3,10 @@
 @section('content')
 
     <div class="container">
-        <a href="{{ route('notes.create') }}">
-            <button class="btn btn-success float-right mb-sm-3">registrar nota</button>
+        <a href="{{ route('notes.index') }}">
+            <button class="btn btn-secondary btn-sm float-right mb-sm-3">
+                volver
+            </button>
         </a>
         <table class="table table-hover mt-3">
             <thead class="bg-info">
@@ -12,7 +14,6 @@
                 <th>descripcion</th>
                 <th colspan="3">opciones</th>
             </thead>
-            @foreach ($notes as $note)
             <tbody>
                     <td>{{ $note->title }}</td>
                     <td>{{ $note->content }}</td>
@@ -34,9 +35,7 @@
                         </form>
                     </td>
             </tbody>
-            @endforeach
         </table>
-        {{ $notes->links() }}
     </div>
 
 @endsection

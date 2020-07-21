@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-class NotesController extends Controller
+use App\Note;
+use Illuminate\Support\Facades\DB;
+
+class NoteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +15,9 @@ class NotesController extends Controller
      */
     public function index()
     {
-        return view('notes.index');
+        $notes = DB::table('notes')->paginate(10);
+
+        return view('notes.index', ['notes' => $notes]);
     }
 
     /**
@@ -27,7 +27,7 @@ class NotesController extends Controller
      */
     public function create()
     {
-        //
+        return view('notes.create');
     }
 
     /**
@@ -38,7 +38,14 @@ class NotesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $note = new Note();
+
+        $note->title = request('title');
+        $note->content = request('content');
+
+        $note->save();
+
+        return redirect('/notes');
     }
 
     /**
@@ -49,7 +56,7 @@ class NotesController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('notes.show', ['note' => Note::findOrFail($id)]);
     }
 
     /**
@@ -60,7 +67,7 @@ class NotesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('notes.edit', ['note' => Note::findOrFail($id)]);
     }
 
     /**
@@ -72,7 +79,14 @@ class NotesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $note = Note::findOrFail($id);
+
+        $note->title = $request->get('title');
+        $note->content = $request->get('content');
+
+        $note->update();
+
+        return redirect('/notes');
     }
 
     /**
@@ -83,6 +97,10 @@ class NotesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $note = Note::findOrFail($id);
+
+        $note->delete();
+
+        return redirect('/notes');
     }
 }
