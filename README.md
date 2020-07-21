@@ -2,8 +2,8 @@
 aplicación web para crear notas usando la tecnología laravel
 
 # Herramientas
-**composer**
-**laragon**
+* **composer**
+* **laragon**
 
 
 
