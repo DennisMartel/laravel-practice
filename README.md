@@ -5,6 +5,16 @@ aplicación web para crear notas usando la tecnología laravel
 * **composer**
 * **laragon**
 
+# tecnologias usadas
+* html
+* bootstrap
+* framework laravel
+
+# Instalación de laravel
+```
+composer global require laravel/installer
+cd miproyecto
+```
 
 
 
